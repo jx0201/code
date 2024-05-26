@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Size Recommendation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: white; /* Full white background */
+            margin: 0;
+        }
+        .container {
+            background-color: #f0f0f0; /* Light grey background for the container */
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid #ddd; /* Light grey border */
+        }
+        h1 {
+            text-align: center;
+            color: #333; /* Dark grey text */
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555; /* Medium grey text */
+        }
+        input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc; /* Light grey border */
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .recommend-btn {
+            background-color: #333; /* Dark grey background */
+            color: white;
+        }
+        .clear-btn {
+            background-color: #555; /* Medium grey background */
+            color: white;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #333; /* Dark grey text */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Find Your Best Fit</h1>
+        <div class="form-group">
+            <label for="height">Height (cm):</label>
+            <input type="number" id="height" required>
+        </div>
+        <div class="form-group">
+            <label for="weight">Weight (kg):</label>
+            <input type="number" id="weight" required>
+        </div>
+        <div class="buttons">
+            <button class="recommend-btn" onclick="recommendSize()">Get Size Recommendation</button>
+            <button class="clear-btn" onclick="clearForm()">Clear</button>
+        </div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function recommendSize() {
+            const height = parseFloat(document.getElementById('height').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            let size = '';
+
+            if (!height || !weight) {
+                document.getElementById('result').innerHTML = 'Please enter both height and weight.';
+                return;
+            }
+
+            if (height < 150 && weight < 45) {
+                size = 'XXS';
+            } else if (height >= 150 && height < 160 && weight >= 45 && weight < 55) {
+                size = 'XS';
+            } else if (height >= 160 && height < 170 && weight >= 55 && weight < 65) {
+                size = 'S';
+            } else if (height >= 170 && height < 175 && weight >= 65 && weight < 75) {
+                size = 'M';
+            } else if (height >= 170 && weight >= 75 && weight < 90) {
+                size = 'L';
+            } else if (height >= 175 && weight >= 90 && weight < 110) {
+                size = 'XL';
+            } else if (height >= 180 && weight >= 110 && weight < 150) {
+                size = 'XXL';
+            } else {
+                size = 'Sorry No Size available'; // Default to 'M' if input doesn't match specific ranges
+            }
+
+            document.getElementById('result').innerHTML = `The recommended size for you is: ${size}`;
+        }
+
+        function clearForm() {
+            document.getElementById('height').value = '';
+            document.getElementById('weight').value = '';
+            document.getElementById('result').innerHTML = '';
+        }
+    </script>
+
+</body>
+</html>
